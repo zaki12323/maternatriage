@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MaternaTriage — Offline Maternal Risk Decision Support</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Persistent Non-Diagnostic Clinical Safety Banner -->
+  <header class="safety-banner" role="alert">
+    <div class="banner-content">
+      <span class="banner-badge">NON-DIAGNOSTIC PROTOTYPE</span>
+      <span class="banner-text">
+        <strong>Clinical Safety Notice:</strong> MaternaTriage is a research decision-support prototype evaluated on historical clinical data. It is <strong>NOT</strong> a certified medical diagnostic device. Clinical assessment by a qualified midwife or clinician always supersedes software outputs.
+      </span>
+    </div>
+  </header>
+
+  <!-- Top App Navigation & Branding Header -->
+  <header class="app-header">
+    <div class="container header-container">
+      <div class="brand">
+        <img src="assets/logo.svg" alt="MaternaTriage Logo" class="brand-logo" onerror="this.src='../assets/logo.svg'">
+        <div class="brand-titles">
+          <h1>MATERNA<span class="brand-accent">TRIAGE</span></h1>
+          <p class="tagline">Offline, Calibrated Maternal Risk Triage for Low-Resource Clinics</p>
+        </div>
+      </div>
+      <div class="header-status">
+        <span class="status-indicator online-dot"></span>
+        <span class="status-label" id="offlineStatus">100% Client-Side &bull; Offline Ready</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Navigation Tabs -->
+  <nav class="nav-tabs-bar">
+    <div class="container nav-tabs-container">
+      <button class="nav-tab active" data-tab="tab-triage" id="tabBtnTriage">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        Live Bedside Triage
+      </button>
+      <button class="nav-tab" data-tab="tab-evaluation" id="tabBtnEvaluation">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+        Held-Out Evaluation &amp; Limitations
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main App Body -->
+  <main class="container main-content">
+
+    <!-- ================================================================= -->
+    <!-- TAB 1: LIVE BEDSIDE TRIAGE -->
+    <!-- ================================================================= -->
+    <section id="tab-triage" class="tab-pane active">
+      <!-- One-Click Preset Patient Scenarios -->
+      <div class="presets-card">
+        <div class="presets-header">
+          <span class="presets-label">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            One-Click Clinical Patient Presets:
+          </span>
+        </div>
+        <div class="preset-buttons">
+          <button type="button" class="preset-btn" id="preset1">
+            <strong>Case 1: Routine ANC Visit</strong>
+            <span>Low Risk (Age 23, BP 115/75, BS 4.8)</span>
+          </button>
+          <button type="button" class="preset-btn" id="preset2">
+            <strong>Case 2: Borderline Monitoring</strong>
+            <span>Mid Risk (Age 28, BP 125/82, BS 6.8)</span>
+          </button>
+          <button type="button" class="preset-btn" id="preset3">
+            <strong>Case 3: Acute Preeclampsia Crises</strong>
+            <span>High Risk (Age 32, BP 165/105, BS 12.0)</span>
+          </button>
+          <button type="button" class="preset-btn alert-preset" id="preset4">
+            <strong>Case 4: Sensor Fault Trap</strong>
+            <span>Artifact (HR = 7 bpm &bull; Guardrail Trigger)</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Triage Two-Column Layout -->
+      <div class="triage-grid">
+
+        <!-- Column 1: Bedside Vital Inputs -->
+        <div class="card vital-inputs-card">
+          <div class="card-header">
+            <h2>Bedside Vital Signs</h2>
+            <div class="unit-toggles">
+              <button type="button" class="unit-toggle-btn active" id="toggleTemp" title="Toggle Temperature Unit">
+                °F
+              </button>
+              <button type="button" class="unit-toggle-btn active" id="toggleSugar" title="Toggle Blood Sugar Unit">
+                mmol/L
+              </button>
+            </div>
+          </div>
+
+          <form id="vitalsForm" class="vitals-form" onsubmit="return false;">
+            <!-- Age Input -->
+            <div class="form-group">
+              <label for="inputAge">
+                Maternal Age
+                <span class="unit-text">(years)</span>
+              </label>
+              <input type="number" id="inputAge" min="12" max="60" step="1" value="23" required>
+              <small class="field-hint">Adolescent &lt;20 or Advanced &ge;35 flags risk</small>
+            </div>
+
+            <!-- Systolic BP -->
+            <div class="form-group">
+              <label for="inputSysBP">
+                Systolic Blood Pressure
+                <span class="unit-text">(mmHg)</span>
+              </label>
+              <input type="number" id="inputSysBP" min="60" max="240" step="1" value="115" required>
+              <small class="field-hint">ACOG severe threshold: &ge;160 mmHg</small>
+            </div>
+
+            <!-- Diastolic BP -->
+            <div class="form-group">
+              <label for="inputDiaBP">
+                Diastolic Blood Pressure
+                <span class="unit-text">(mmHg)</span>
+              </label>
+              <input type="number" id="inputDiaBP" min="30" max="160" step="1" value="75" required>
+              <small class="field-hint">ACOG severe threshold: &ge;110 mmHg</small>
+            </div>
+
+            <!-- Blood Sugar Input -->
+            <div class="form-group">
+              <label for="inputBS">
+                Blood Glucose
+                <span class="unit-text" id="sugarUnitLabel">(mmol/L)</span>
+              </label>
+              <input type="number" id="inputBS" min="1.0" max="35.0" step="0.1" value="4.8" required>
+              <small class="field-hint" id="sugarHint">WHO gestational threshold: &ge;7.8 mmol/L</small>
+            </div>
+
+            <!-- Body Temperature Input -->
+            <div class="form-group">
+              <label for="inputTemp">
+                Body Temperature
+                <span class="unit-text" id="tempUnitLabel">(°F)</span>
+              </label>
+              <input type="number" id="inputTemp" min="93.0" max="107.0" step="0.1" value="98.0" required>
+              <small class="field-hint" id="tempHint">Fever threshold: &ge;100.4 °F (38.0 °C)</small>
+            </div>
+
+            <!-- Heart Rate Input -->
+            <div class="form-group">
+              <label for="inputHR">
+                Heart Rate / Pulse
+                <span class="unit-text">(bpm)</span>
+              </label>
+              <input type="number" id="inputHR" min="1" max="220" step="1" value="76" required>
+              <small class="field-hint">Tachycardia &ge;100 bpm; Bradycardia &lt;50 bpm</small>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="btn btn-primary" id="btnCalculate">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                Calculate Clinical Risk
+              </button>
+              <button type="button" class="btn btn-secondary" id="btnReset">
+                Reset
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Column 2: Triage Output & Decision Guidance -->
+        <div class="triage-output-column">
+
+          <!-- Sensor Fault Alert Banner (Hidden by default) -->
+          <div class="sensor-fault-card" id="sensorFaultCard" style="display: none;">
+            <div class="fault-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            </div>
+            <div class="fault-content">
+              <h3>PHYSIOLOGICAL SENSOR FAULT DETECTED</h3>
+              <p>One or more readings fall outside biological obstetric limits. Triage inference has been halted to prevent silent clinical error:</p>
+              <ul id="faultReasonsList"></ul>
+              <strong>Action: Check cuff position, test lead contact, re-zero sensor, and re-enter vitals.</strong>
+            </div>
+          </div>
+
+          <!-- Main Risk Assessment Card -->
+          <div class="card risk-card" id="riskCard">
+            <div class="risk-card-header">
+              <span class="card-badge" id="riskBadge">AWAITING VITALS</span>
+              <span class="model-tag">Calibrated Cost-Sensitive Forest</span>
+            </div>
+
+            <div class="risk-display">
+              <div class="risk-level-title" id="riskTitle">Low Risk</div>
+              <p class="risk-description" id="riskDescription">
+                Vitals within normal physiological pregnancy parameters.
+              </p>
+            </div>
+
+            <!-- Concrete Clinical Action Workflow Guidance -->
+            <div class="action-guidance" id="actionGuidance">
+              <h4>Recommended Obstetric Protocol:</h4>
+              <p id="actionText">Proceed with standard routine antenatal care (ANC) checkup. Schedule next routine visit in 4 weeks.</p>
+            </div>
+
+            <!-- Calibrated Probabilities Progress Bars -->
+            <div class="probabilities-section">
+              <h4>Calibrated Multiclass Probabilities:</h4>
+
+              <div class="prob-row">
+                <div class="prob-label">
+                  <span>Low Risk</span>
+                  <strong id="probLowText">88.2%</strong>
+                </div>
+                <div class="prob-bar-track">
+                  <div class="prob-bar prob-low" id="barLow" style="width: 88.2%;"></div>
+                </div>
+              </div>
+
+              <div class="prob-row">
+                <div class="prob-label">
+                  <span>Mid Risk</span>
+                  <strong id="probMidText">9.4%</strong>
+                </div>
+                <div class="prob-bar-track">
+                  <div class="prob-bar prob-mid" id="barMid" style="width: 9.4%;"></div>
+                </div>
+              </div>
+
+              <div class="prob-row">
+                <div class="prob-label">
+                  <span>High Risk</span>
+                  <strong id="probHighText">2.4%</strong>
+                </div>
+                <div class="prob-bar-track">
+                  <div class="prob-bar prob-high" id="barHigh" style="width: 2.4%;"></div>
+                </div>
+              </div>
+
+              <div class="confidence-footer">
+                <span id="confidenceStatus">High Confidence Prediction (&ge; 55% calibrated certainty)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Computed Hemodynamic Indices Card -->
+          <div class="card hemodynamics-card">
+            <h3>Calculated Physiological Indices</h3>
+            <div class="indices-grid">
+              <div class="index-item">
+                <span class="index-title">Mean Arterial Pressure (MAP)</span>
+                <strong class="index-val" id="valMAP">88.3 mmHg</strong>
+                <small class="index-ref">Target: 70–105 mmHg</small>
+              </div>
+              <div class="index-item">
+                <span class="index-title">Pulse Pressure</span>
+                <strong class="index-val" id="valPP">40 mmHg</strong>
+                <small class="index-ref">Target: 30–50 mmHg</small>
+              </div>
+              <div class="index-item">
+                <span class="index-title">Shock Index (HR / SBP)</span>
+                <strong class="index-val" id="valSI">0.66</strong>
+                <small class="index-ref">Normal &lt;0.90 (&ge;0.90 alert)</small>
+              </div>
+            </div>
+          </div>
+
+          <!-- Local Explanation & Rule Comparison Card -->
+          <div class="card explanation-card">
+            <div class="card-header">
+              <h3>Transparent Decision Drivers &amp; MEOWS Comparison</h3>
+            </div>
+            <div class="explanation-content">
+              <div class="drivers-box">
+                <h4>Key Bedside Vital Influences:</h4>
+                <ul id="vitalDriversList">
+                  <li>Normal Mean Arterial Pressure (88 mmHg) indicates stable organ perfusion.</li>
+                  <li>Normoglycemia (4.8 mmol/L) rules out acute gestational hyperglycemia.</li>
+                </ul>
+              </div>
+
+              <div class="meows-comparison-box">
+                <h4>Clinical MEOWS-Lite Rule Comparison:</h4>
+                <p>
+                  Deterministic MEOWS-Lite Baseline classifies this patient as:
+                  <strong id="meowsPredLabel" class="tag-low">Low Risk</strong>
+                  (Score: <span id="meowsScoreVal">0</span> points)
+                </p>
+                <div id="meowsFlagsContainer" class="meows-flags">
+                  <em>No active WHO/ACOG red or yellow warning triggers.</em>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- TAB 2: HELD-OUT EVALUATION & LIMITATIONS -->
+    <!-- ================================================================= -->
+    <section id="tab-evaluation" class="tab-pane">
+      <div class="card eval-header-card">
+        <h2>Rigorous Held-Out Evaluation &amp; Scientific Integrity</h2>
+        <p>
+          Every metric, table entry, and chart below was programmatically verified on an untouched,
+          stratified 25% held-out test set (Seed=42) after exact deduplication and sensor-fault quarantine.
+        </p>
+      </div>
+
+      <!-- Leakage Alert Banner -->
+      <div class="audit-callout">
+        <h3>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+          Critical Scientific Finding: 55.4% Duplicate Contamination in UCI 863
+        </h3>
+        <p>
+          The original dataset contains 562 exact duplicate rows. Standard naive splits leak over 55% of the test set directly from training, creating an artificial accuracy illusion of &gt;88%. Below, we report both the naive split and the honest deduplicated evaluation.
+        </p>
+      </div>
+
+      <!-- 3-Model Comparison Table -->
+      <div class="card table-card">
+        <h3>Strict Held-Out Test Set Performance Comparison</h3>
+        <div class="table-responsive">
+          <table class="metrics-table" id="comparisonTable">
+            <thead>
+              <tr>
+                <th>Evaluation Metric / Clinical Endpoint</th>
+                <th>Baseline 1: MEOWS-Lite Rule (Zero ML)</th>
+                <th>Baseline 2: Regularized Logistic Reg.</th>
+                <th>Proposed: MaternaTriage Calibrated Forest</th>
+              </tr>
+            </thead>
+            <tbody id="metricsTableBody">
+              <!-- Dynamically populated from model_bundle.json / model_bundle.js -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Embedded Publication-Grade Evaluation Figures -->
+      <div class="figures-section">
+        <h3>Verified Evaluation Visualizations (300-DPI Publication Figures)</h3>
+
+        <div class="figure-grid">
+          <div class="figure-card">
+            <h4>Figure 1: Duplicate Leakage Audit</h4>
+            <img src="figures/fig1_leakage_audit.png" alt="Figure 1: Data Leakage Audit" class="eval-img" onerror="this.src='../results/figures/fig1_leakage_audit.png'">
+            <p class="fig-caption">Naive leaked split vs strict deduplicated evaluation, exposing accuracy inflation caused by duplicate patient clones.</p>
+          </div>
+
+          <div class="figure-card">
+            <h4>Figure 2: Clinical Efficacy &amp; Cost Savings</h4>
+            <img src="figures/fig2_clinical_cost_and_recall.png" alt="Figure 2: Clinical Efficacy" class="eval-img" onerror="this.src='../results/figures/fig2_clinical_cost_and_recall.png'">
+            <p class="fig-caption">High-Risk Sensitivity, Missed High-Risk emergencies per 1,000 visits, and Asymmetric Clinical Triage Cost across penalty weights.</p>
+          </div>
+
+          <div class="figure-card">
+            <h4>Figure 3: Reliability &amp; Probability Calibration</h4>
+            <img src="figures/fig3_calibration_reliability.png" alt="Figure 3: Calibration" class="eval-img" onerror="this.src='../results/figures/fig3_calibration_reliability.png'">
+            <p class="fig-caption">Multi-class reliability diagram showing Expected Calibration Error (ECE) and Brier score before vs after out-of-fold Platt scaling.</p>
+          </div>
+
+          <div class="figure-card">
+            <h4>Figure 4: Failure Modes &amp; Stress Testing</h4>
+            <img src="figures/fig4_failure_modes_ablation.png" alt="Figure 4: Failure Modes" class="eval-img" onerror="this.src='../results/figures/fig4_failure_modes_ablation.png'">
+            <p class="fig-caption">Age subgroup sensitivity (&lt;20, 20–34, &ge;35), missing-glucometer test strip ablation, and 50-trial measurement noise degradation.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Explicit Failure Modes & Clinical Limitations -->
+      <div class="card limitations-card">
+        <h3>Explicit Clinical Boundaries &amp; Failure Modes</h3>
+        <ul>
+          <li><strong>Missing Glucometer (No Test Strips):</strong> Imputing blood sugar drops accuracy and high-risk recall significantly. MaternaTriage requires blood glucose measurements for reliable triage.</li>
+          <li><strong>Extreme Adolescent &amp; Advanced Age:</strong> Small subgroup sample sizes in historical training data mean confidence intervals are wider for mothers &lt;18 and &ge;40 years.</li>
+          <li><strong>Sensor Measurement Noise:</strong> Uncalibrated analog cuffs or slipping pulse oximeters (&plusmn;5 mmHg BP) degrade high-risk sensitivity. Standardized cuff application is essential.</li>
+          <li><strong>Regional Dataset Shift:</strong> Model trained on Bangladesh rural clinics (Ahmed et al.). Local recalibration is recommended prior to deployment in other geographic settings.</li>
+        </ul>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- App Footer -->
+  <footer class="app-footer">
+    <div class="container footer-content">
+      <p>
+        <strong>MaternaTriage</strong> &bull; Developed by <strong>Sayed Zaki Mirzad</strong> (Grade 12, Mazar-e-Sharif, Afghanistan)
+      </p>
+      <p class="footer-sub">
+        Dataset: UCI Machine Learning Repository ID: 863 (Marzia Ahmed et al., CC BY 4.0) &bull; Built for Devpost "AI for Medicine" Hackathon 2026
+      </p>
+    </div>
+  </footer>
+
+  <!-- Scripts: Loads embedded bundle fallback for zero-CORS file:// local double-click execution, followed by app logic -->
+  <script src="model_bundle.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

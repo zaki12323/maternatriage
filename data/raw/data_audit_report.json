@@ -1,0 +1,336 @@
+{
+  "dataset_name": "UCI Maternal Health Risk Dataset (ID: 863)",
+  "source": "Marzia Ahmed et al., Bangladesh rural clinics (CC BY 4.0)",
+  "total_raw_records": 1014,
+  "total_missing_values": 0,
+  "missing_per_column": {
+    "Age": 0,
+    "SystolicBP": 0,
+    "DiastolicBP": 0,
+    "BS": 0,
+    "BodyTemp": 0,
+    "HeartRate": 0,
+    "RiskLevel": 0
+  },
+  "exact_duplicate_rows": 562,
+  "exact_duplicate_percentage": 55.42,
+  "unique_records": 452,
+  "inconsistent_duplicate_rows": 18,
+  "sensor_faults_count": 16,
+  "sensor_fault_details": [
+    {
+      "row_index": 19,
+      "vitals": {
+        "Age": 10,
+        "SystolicBP": 70,
+        "DiastolicBP": 50,
+        "BS": 6.9,
+        "BodyTemp": 98.0,
+        "HeartRate": 70
+      },
+      "label": "low risk",
+      "reasons": [
+        "Age (10 yrs) outside expected obstetric range [12-60 yrs]"
+      ]
+    },
+    {
+      "row_index": 114,
+      "vitals": {
+        "Age": 63,
+        "SystolicBP": 140,
+        "DiastolicBP": 90,
+        "BS": 15.0,
+        "BodyTemp": 98.0,
+        "HeartRate": 90
+      },
+      "label": "high risk",
+      "reasons": [
+        "Age (63 yrs) outside expected obstetric range [12-60 yrs]"
+      ]
+    },
+    {
+      "row_index": 250,
+      "vitals": {
+        "Age": 10,
+        "SystolicBP": 85,
+        "DiastolicBP": 65,
+        "BS": 6.9,
+        "BodyTemp": 98.0,
+        "HeartRate": 70
+      },
+      "label": "low risk",
+      "reasons": [
+        "Age (10 yrs) outside expected obstetric range [12-60 yrs]"
+      ]
+    },
+    {
+      "row_index": 313,
+      "vitals": {
+        "Age": 62,
+        "SystolicBP": 120,
+        "DiastolicBP": 80,
+        "BS": 6.9,
+        "BodyTemp": 98.0,
+        "HeartRate": 66
+      },
+      "label": "low risk",
+      "reasons": [
+        "Age (62 yrs) outside expected obstetric range [12-60 yrs]"
+      ]
+    },
+    {
+      "row_index": 322,
+      "vitals": {
+        "Age": 65,
+        "SystolicBP": 90,
+        "DiastolicBP": 60,
+        "BS": 6.9,
+        "BodyTemp": 98.0,
+        "HeartRate": 70
+      },
+      "label": "low risk",
+      "reasons": [
+        "Age (65 yrs) outside expected obstetric range [12-60 yrs]"
+      ]
+    },
+    {
+      "row_index": 326,
+      "vitals": {
+        "Age": 66,
+        "SystolicBP": 85,
+        "DiastolicBP": 60,
+        "BS": 6.9,
+        "BodyTemp": 98.0,
+        "HeartRate": 86
+      },
+      "label": "low risk",
+      "reasons": [
+        "Age (66 yrs) outside expected obstetric range [12-60 yrs]"
+      ]
+    },
+    {
+      "row_index": 338,
+      "vitals": {
+        "Age": 70,
+        "SystolicBP": 85,
+        "DiastolicBP": 60,
+        "BS": 6.9,
+        "BodyTemp": 102.0,
+        "HeartRate": 70
+      },
+      "label": "low risk",
+      "reasons": [
+        "Age (70 yrs) outside expected obstetric range [12-60 yrs]"
+      ]
+    },
+    {
+      "row_index": 339,
+      "vitals": {
+        "Age": 65,
+        "SystolicBP": 120,
+        "DiastolicBP": 90,
+        "BS": 6.9,
+        "BodyTemp": 103.0,
+        "HeartRate": 76
+      },
+      "label": "low risk",
+      "reasons": [
+        "Age (65 yrs) outside expected obstetric range [12-60 yrs]"
+      ]
+    },
+    {
+      "row_index": 435,
+      "vitals": {
+        "Age": 65,
+        "SystolicBP": 130,
+        "DiastolicBP": 80,
+        "BS": 15.0,
+        "BodyTemp": 98.0,
+        "HeartRate": 86
+      },
+      "label": "high risk",
+      "reasons": [
+        "Age (65 yrs) outside expected obstetric range [12-60 yrs]"
+      ]
+    },
+    {
+      "row_index": 499,
+      "vitals": {
+        "Age": 16,
+        "SystolicBP": 120,
+        "DiastolicBP": 75,
+        "BS": 7.9,
+        "BodyTemp": 98.0,
+        "HeartRate": 7
+      },
+      "label": "low risk",
+      "reasons": [
+        "Heart Rate (7 bpm) outside plausible bedside range [40-180 bpm]"
+      ]
+    },
+    {
+      "row_index": 502,
+      "vitals": {
+        "Age": 63,
+        "SystolicBP": 140,
+        "DiastolicBP": 90,
+        "BS": 15.0,
+        "BodyTemp": 98.0,
+        "HeartRate": 90
+      },
+      "label": "high risk",
+      "reasons": [
+        "Age (63 yrs) outside expected obstetric range [12-60 yrs]"
+      ]
+    },
+    {
+      "row_index": 653,
+      "vitals": {
+        "Age": 15,
+        "SystolicBP": 76,
+        "DiastolicBP": 68,
+        "BS": 7.0,
+        "BodyTemp": 98.0,
+        "HeartRate": 77
+      },
+      "label": "low risk",
+      "reasons": [
+        "Pulse Pressure (8 mmHg) is critically narrow (<10 mmHg), check cuff placement"
+      ]
+    },
+    {
+      "row_index": 670,
+      "vitals": {
+        "Age": 10,
+        "SystolicBP": 100,
+        "DiastolicBP": 50,
+        "BS": 6.0,
+        "BodyTemp": 99.0,
+        "HeartRate": 70
+      },
+      "label": "mid risk",
+      "reasons": [
+        "Age (10 yrs) outside expected obstetric range [12-60 yrs]"
+      ]
+    },
+    {
+      "row_index": 698,
+      "vitals": {
+        "Age": 15,
+        "SystolicBP": 76,
+        "DiastolicBP": 68,
+        "BS": 7.0,
+        "BodyTemp": 98.0,
+        "HeartRate": 77
+      },
+      "label": "low risk",
+      "reasons": [
+        "Pulse Pressure (8 mmHg) is critically narrow (<10 mmHg), check cuff placement"
+      ]
+    },
+    {
+      "row_index": 849,
+      "vitals": {
+        "Age": 10,
+        "SystolicBP": 100,
+        "DiastolicBP": 50,
+        "BS": 6.0,
+        "BodyTemp": 99.0,
+        "HeartRate": 70
+      },
+      "label": "mid risk",
+      "reasons": [
+        "Age (10 yrs) outside expected obstetric range [12-60 yrs]"
+      ]
+    },
+    {
+      "row_index": 908,
+      "vitals": {
+        "Age": 16,
+        "SystolicBP": 120,
+        "DiastolicBP": 75,
+        "BS": 7.9,
+        "BodyTemp": 98.0,
+        "HeartRate": 7
+      },
+      "label": "low risk",
+      "reasons": [
+        "Heart Rate (7 bpm) outside plausible bedside range [40-180 bpm]"
+      ]
+    }
+  ],
+  "clean_modeling_records": 440,
+  "class_distributions": {
+    "raw_1014_records": {
+      "low risk": 406,
+      "mid risk": 336,
+      "high risk": 272
+    },
+    "deduplicated_records": {
+      "low risk": 234,
+      "high risk": 112,
+      "mid risk": 106
+    },
+    "clean_modeling_records": {
+      "low risk": 225,
+      "high risk": 110,
+      "mid risk": 105
+    }
+  },
+  "feature_statistics_clean": {
+    "Age": {
+      "min": 12.0,
+      "max": 60.0,
+      "mean": 28.82,
+      "median": 25.0,
+      "std": 13.06,
+      "q25": 19.0,
+      "q75": 35.0
+    },
+    "SystolicBP": {
+      "min": 70.0,
+      "max": 160.0,
+      "mean": 110.79,
+      "median": 120.0,
+      "std": 17.68,
+      "q25": 90.0,
+      "q75": 120.0
+    },
+    "DiastolicBP": {
+      "min": 49.0,
+      "max": 100.0,
+      "mean": 75.59,
+      "median": 80.0,
+      "std": 13.72,
+      "q25": 65.0,
+      "q75": 89.25
+    },
+    "BS": {
+      "min": 6.0,
+      "max": 19.0,
+      "mean": 8.35,
+      "median": 7.5,
+      "std": 2.82,
+      "q25": 6.9,
+      "q75": 7.9
+    },
+    "BodyTemp": {
+      "min": 98.0,
+      "max": 103.0,
+      "mean": 98.69,
+      "median": 98.0,
+      "std": 1.4,
+      "q25": 98.0,
+      "q75": 98.0
+    },
+    "HeartRate": {
+      "min": 60.0,
+      "max": 90.0,
+      "mean": 74.06,
+      "median": 76.0,
+      "std": 7.52,
+      "q25": 70.0,
+      "q75": 80.0
+    }
+  }
+}

@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F8FAFC" />
+      <stop offset="100%" stop-color="#F1F5F9" />
+    </linearGradient>
+
+    <!-- Shield Primary Teal Gradient -->
+    <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0D9488" />
+      <stop offset="100%" stop-color="#0F766E" />
+    </linearGradient>
+
+    <!-- Warm Coral Glow Gradient -->
+    <linearGradient id="coralGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FB7185" />
+      <stop offset="100%" stop-color="#E11D48" />
+    </linearGradient>
+
+    <!-- Soft Drop Shadows -->
+    <filter id="shieldShadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="16" stdDeviation="20" flood-color="#0F766E" flood-opacity="0.22" />
+    </filter>
+
+    <filter id="pulseGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#E11D48" flood-opacity="0.35" />
+    </filter>
+  </defs>
+
+  <!-- Background Base Canvas -->
+  <rect width="800" height="800" rx="160" fill="url(#bgGrad)" />
+
+  <!-- Outer Protective Halo Circle -->
+  <circle cx="400" cy="380" r="280" fill="none" stroke="#CCFBF1" stroke-width="8" stroke-dasharray="16 12" />
+
+  <!-- Central Medical Shield -->
+  <path d="M 400 130 
+           C 540 130, 620 180, 620 310 
+           C 620 480, 490 590, 400 645 
+           C 310 590, 180 480, 180 310 
+           C 180 180, 260 130, 400 130 Z" 
+        fill="url(#shieldGrad)" 
+        filter="url(#shieldShadow)" />
+
+  <!-- Inner Soft Bevel Ring -->
+  <path d="M 400 155 
+           C 520 155, 595 200, 595 315 
+           C 595 465, 478 565, 400 615 
+           C 322 565, 205 465, 205 315 
+           C 205 200, 280 155, 400 155 Z" 
+        fill="none" 
+        stroke="#14B8A6" 
+        stroke-width="5" 
+        opacity="0.45" />
+
+  <!-- Maternal Protective Silhouette / Embracing Heart -->
+  <path d="M 400 235
+           C 435 190, 505 190, 530 240
+           C 560 300, 505 385, 400 465
+           C 295 385, 240 300, 270 240
+           C 295 190, 365 190, 400 235 Z"
+        fill="none"
+        stroke="#F0FDFA"
+        stroke-width="26"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        opacity="0.95" />
+
+  <!-- Inner Coral Vitality Pulse (ECG / Fetal Life Waveform) -->
+  <path d="M 230 350
+           L 315 350
+           L 345 310
+           L 375 410
+           L 415 260
+           L 445 385
+           L 470 330
+           L 495 350
+           L 570 350"
+        fill="none"
+        stroke="url(#coralGrad)"
+        stroke-width="18"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        filter="url(#pulseGlow)" />
+
+  <!-- Fetal Life Center Spark (Small glowing beacon) -->
+  <circle cx="400" cy="355" r="14" fill="#FFFFFF" />
+  <circle cx="400" cy="355" r="8" fill="#E11D48" />
+
+  <!-- Bottom Cross / Triage Marker -->
+  <g transform="translate(400, 525)">
+    <circle cx="0" cy="0" r="32" fill="#0D9488" stroke="#F0FDFA" stroke-width="4" />
+    <path d="M -14 0 L 14 0 M 0 -14 L 0 14" stroke="#F0FDFA" stroke-width="6" stroke-linecap="round" />
+  </g>
+
+  <!-- Typography: MaternaTriage -->
+  <text x="400" y="725" 
+        text-anchor="middle" 
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" 
+        font-size="46" 
+        font-weight="800" 
+        letter-spacing="4" 
+        fill="#0F766E">
+    MATERNA<tspan fill="#E11D48">TRIAGE</tspan>
+  </text>
+  <text x="400" y="760" 
+        text-anchor="middle" 
+        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" 
+        font-size="18" 
+        font-weight="600" 
+        letter-spacing="6" 
+        fill="#64748B">
+    CLINICAL DECISION SUPPORT
+  </text>
+</svg>

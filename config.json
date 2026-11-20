@@ -1,0 +1,29 @@
+{
+  "project_name": "MaternaTriage",
+  "random_seed": 42,
+  "test_split_ratio": 0.25,
+  "sensor_fault_bounds": {
+    "age_min": 12,
+    "age_max": 60,
+    "systolic_bp_min": 60,
+    "systolic_bp_max": 240,
+    "diastolic_bp_min": 30,
+    "diastolic_bp_max": 160,
+    "bs_min": 1.0,
+    "bs_max": 35.0,
+    "body_temp_min": 93.0,
+    "body_temp_max": 107.0,
+    "heart_rate_min": 40,
+    "heart_rate_max": 180
+  },
+  "clinical_cost_matrix": {
+    "missed_high_as_low": 15.0,
+    "missed_high_as_mid": 8.0,
+    "unnecessary_high_from_low": 2.0,
+    "unnecessary_high_from_mid": 1.0,
+    "minor_mid_as_low": 2.0,
+    "minor_low_as_mid": 1.0,
+    "correct_classification": 0.0
+  },
+  "uncertainty_threshold": 0.55
+}

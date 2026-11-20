@@ -1,0 +1,323 @@
+{
+  "project": "MaternaTriage",
+  "evaluation_protocol": "Strict Deduplicated 75/25 Stratified Train/Test Held-Out Evaluation (Seed=42)",
+  "timestamp": "2026-11-20T23:43:41.371408",
+  "total_raw_dataset_rows": 1014,
+  "clean_unique_records_for_modeling": 404,
+  "train_set_size": 303,
+  "held_out_test_set_size": 101,
+  "target_classes": [
+    "low risk",
+    "mid risk",
+    "high risk"
+  ],
+  "naive_split_leakage_audit": {
+    "naive_test_samples": 254,
+    "leaked_test_rows_in_train": 190,
+    "leakage_percentage": 74.8,
+    "naive_accuracy": 0.7323,
+    "naive_macro_f1": 0.733,
+    "naive_high_risk_recall": 0.8529
+  },
+  "models": {
+    "meows_lite_rule": {
+      "model_name": "MEOWS-Lite Clinical Rule",
+      "sample_count": 101,
+      "accuracy": 0.5842,
+      "macro_f1": 0.5091,
+      "weighted_f1": 0.567,
+      "high_risk_auroc": 0.8349,
+      "calibration_ece": 0.3158,
+      "brier_score": 0.7219,
+      "clinical_cost_per_1000_patients": 752.48,
+      "missed_high_risk_per_1000": 19.8,
+      "unnecessary_urgent_referrals_per_1000": 188.1,
+      "per_class_metrics": {
+        "low risk": {
+          "true_positive": 32,
+          "false_negative": 21,
+          "false_positive": 10,
+          "true_negative": 38,
+          "sensitivity_recall": 0.6038,
+          "specificity": 0.7917,
+          "precision": 0.7619,
+          "f1_score": 0.6737
+        },
+        "mid risk": {
+          "true_positive": 3,
+          "false_negative": 19,
+          "false_positive": 13,
+          "true_negative": 66,
+          "sensitivity_recall": 0.1364,
+          "specificity": 0.8354,
+          "precision": 0.1875,
+          "f1_score": 0.1579
+        },
+        "high risk": {
+          "true_positive": 24,
+          "false_negative": 2,
+          "false_positive": 19,
+          "true_negative": 56,
+          "sensitivity_recall": 0.9231,
+          "specificity": 0.7467,
+          "precision": 0.5581,
+          "f1_score": 0.6957
+        }
+      },
+      "confusion_matrix": {
+        "labels": [
+          "low risk",
+          "mid risk",
+          "high risk"
+        ],
+        "matrix": [
+          [
+            32,
+            11,
+            10
+          ],
+          [
+            10,
+            3,
+            9
+          ],
+          [
+            0,
+            2,
+            24
+          ]
+        ]
+      }
+    },
+    "logistic_regression": {
+      "model_name": "Logistic Regression (Regularized)",
+      "sample_count": 101,
+      "accuracy": 0.6535,
+      "macro_f1": 0.5935,
+      "weighted_f1": 0.6518,
+      "high_risk_auroc": 0.941,
+      "calibration_ece": 0.0867,
+      "brier_score": 0.4358,
+      "clinical_cost_per_1000_patients": 930.69,
+      "missed_high_risk_per_1000": 49.5,
+      "unnecessary_urgent_referrals_per_1000": 99.0,
+      "per_class_metrics": {
+        "low risk": {
+          "true_positive": 39,
+          "false_negative": 14,
+          "false_positive": 10,
+          "true_negative": 38,
+          "sensitivity_recall": 0.7358,
+          "specificity": 0.7917,
+          "precision": 0.7959,
+          "f1_score": 0.7647
+        },
+        "mid risk": {
+          "true_positive": 6,
+          "false_negative": 16,
+          "false_positive": 15,
+          "true_negative": 64,
+          "sensitivity_recall": 0.2727,
+          "specificity": 0.8101,
+          "precision": 0.2857,
+          "f1_score": 0.2791
+        },
+        "high risk": {
+          "true_positive": 21,
+          "false_negative": 5,
+          "false_positive": 10,
+          "true_negative": 65,
+          "sensitivity_recall": 0.8077,
+          "specificity": 0.8667,
+          "precision": 0.6774,
+          "f1_score": 0.7368
+        }
+      },
+      "confusion_matrix": {
+        "labels": [
+          "low risk",
+          "mid risk",
+          "high risk"
+        ],
+        "matrix": [
+          [
+            39,
+            12,
+            2
+          ],
+          [
+            8,
+            6,
+            8
+          ],
+          [
+            2,
+            3,
+            21
+          ]
+        ]
+      }
+    },
+    "maternatriage_calibrated_forest": {
+      "model_name": "MaternaTriage Calibrated Cost-Sensitive Forest",
+      "sample_count": 101,
+      "accuracy": 0.5644,
+      "macro_f1": 0.5187,
+      "weighted_f1": 0.5595,
+      "high_risk_auroc": 0.9723,
+      "calibration_ece": 0.1327,
+      "brier_score": 0.3502,
+      "clinical_cost_per_1000_patients": 554.46,
+      "missed_high_risk_per_1000": 0.0,
+      "unnecessary_urgent_referrals_per_1000": 207.9,
+      "per_class_metrics": {
+        "low risk": {
+          "true_positive": 26,
+          "false_negative": 27,
+          "false_positive": 4,
+          "true_negative": 44,
+          "sensitivity_recall": 0.4906,
+          "specificity": 0.9167,
+          "precision": 0.8667,
+          "f1_score": 0.6265
+        },
+        "mid risk": {
+          "true_positive": 5,
+          "false_negative": 17,
+          "false_positive": 19,
+          "true_negative": 60,
+          "sensitivity_recall": 0.2273,
+          "specificity": 0.7595,
+          "precision": 0.2083,
+          "f1_score": 0.2174
+        },
+        "high risk": {
+          "true_positive": 26,
+          "false_negative": 0,
+          "false_positive": 21,
+          "true_negative": 54,
+          "sensitivity_recall": 1.0,
+          "specificity": 0.72,
+          "precision": 0.5532,
+          "f1_score": 0.7123
+        }
+      },
+      "confusion_matrix": {
+        "labels": [
+          "low risk",
+          "mid risk",
+          "high risk"
+        ],
+        "matrix": [
+          [
+            26,
+            19,
+            8
+          ],
+          [
+            4,
+            5,
+            13
+          ],
+          [
+            0,
+            0,
+            26
+          ]
+        ]
+      },
+      "calibration_comparison": {
+        "raw_rf_ece": 0.1066,
+        "calibrated_rf_ece": 0.1327,
+        "ece_reduction_pct": -24.49,
+        "raw_rf_brier": 0.3911,
+        "calibrated_rf_brier": 0.3502,
+        "brier_reduction_pct": 10.46
+      }
+    }
+  },
+  "cost_ratio_sweeps": {
+    "5x_penalty": {
+      "missed_high_cost_weight": 5.0,
+      "meows_cost_per_1000": 643.6,
+      "lr_cost_per_1000": 569.3,
+      "maternatriage_cost_per_1000": 554.5,
+      "cost_reduction_vs_meows_pct": 13.8
+    },
+    "10x_penalty": {
+      "missed_high_cost_weight": 10.0,
+      "meows_cost_per_1000": 693.1,
+      "lr_cost_per_1000": 742.6,
+      "maternatriage_cost_per_1000": 554.5,
+      "cost_reduction_vs_meows_pct": 20.0
+    },
+    "20x_penalty": {
+      "missed_high_cost_weight": 20.0,
+      "meows_cost_per_1000": 792.1,
+      "lr_cost_per_1000": 1089.1,
+      "maternatriage_cost_per_1000": 554.5,
+      "cost_reduction_vs_meows_pct": 30.0
+    }
+  },
+  "age_subgroup_audit": {
+    "Adolescent (<20 yrs)": {
+      "sample_count": 28,
+      "percentage_of_test": 27.7,
+      "accuracy": 0.5,
+      "macro_f1": 0.4524,
+      "high_risk_recall": 1.0,
+      "high_risk_cases": 3
+    },
+    "Prime Obstetric (20-34 yrs)": {
+      "sample_count": 44,
+      "percentage_of_test": 43.6,
+      "accuracy": 0.5909,
+      "macro_f1": 0.5382,
+      "high_risk_recall": 1.0,
+      "high_risk_cases": 9
+    },
+    "Advanced Maternal Age (>=35 yrs)": {
+      "sample_count": 29,
+      "percentage_of_test": 28.7,
+      "accuracy": 0.5862,
+      "macro_f1": 0.4387,
+      "high_risk_recall": 1.0,
+      "high_risk_cases": 14
+    }
+  },
+  "missing_glucometer_ablation": {
+    "imputed_bs_value_mmol_l": 7.5,
+    "accuracy_with_bs": 0.5644,
+    "accuracy_without_bs": 0.5842,
+    "accuracy_drop_pct": -1.98,
+    "macro_f1_with_bs": 0.5187,
+    "macro_f1_without_bs": 0.4989,
+    "macro_f1_drop_pct": 1.98,
+    "high_risk_recall_with_bs": 1.0,
+    "high_risk_recall_without_bs": 0.7308
+  },
+  "measurement_noise_stress_test": {
+    "trials_count": 50,
+    "noise_parameters": "BP +/-5 mmHg, BS +/-0.8 mmol/L, Temp +/-0.5 deg F, HR +/-3 bpm",
+    "baseline_high_risk_recall": 1.0,
+    "mean_noisy_high_risk_recall": 0.9954,
+    "std_noisy_high_risk_recall": 0.0125,
+    "recall_degradation": 0.0046,
+    "mean_noisy_macro_f1": 0.5022
+  },
+  "feature_importances": {
+    "Age": 0.0714,
+    "SystolicBP": 0.1412,
+    "DiastolicBP": 0.0515,
+    "BS": 0.2336,
+    "BodyTemp": 0.0651,
+    "HeartRate": 0.0408,
+    "MAP": 0.1616,
+    "PulsePressure": 0.0613,
+    "ShockIndex": 0.0768,
+    "HypertensionFlag": 0.0178,
+    "SevereHTNFlag": 0.0,
+    "HyperglycemiaFlag": 0.0395,
+    "FeverFlag": 0.0395
+  }
+}
