@@ -18,7 +18,7 @@ echo.
 if %ERRORLEVEL% EQU 0 (
     echo ========================================================
     echo   SUCCESS! Your project is now live on GitHub!
-    echo   Repository: https://github.com/sayedzakimirzad/maternatriage
+    echo   Repository: https://github.com/zaki12323/maternatriage
     echo ========================================================
 ) else (
     echo ========================================================

@@ -82,7 +82,7 @@ The interactive web application runs **100% locally in the browser with zero ext
 ### Local Environment Setup (Windows, macOS, Linux)
 ```bash
 # Clone repository
-git clone https://github.com/sayedzakimirzad/maternatriage.git
+git clone https://github.com/zaki12323/maternatriage.git
 cd maternatriage
 
 # Create and activate virtual environment
